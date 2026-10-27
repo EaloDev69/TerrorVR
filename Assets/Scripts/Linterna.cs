@@ -9,7 +9,7 @@ public class Linterna : MonoBehaviour
     [SerializeField] public GameObject Spotlight;
     [SerializeField] float batteryTime;
     [SerializeField] public bool encendido;
-    [SerializeField] Transform SocketLinterna;
+    //[SerializeField] Transform SocketLinterna;
  
     float contador;
     Coroutine rutinaBateria;
@@ -40,21 +40,26 @@ public class Linterna : MonoBehaviour
         rutinaBateria = StartCoroutine(GastarBateria());
     }
 
+
     void Apagar()
     {
         encendido = false;
-        Spotlight.gameObject.SetActive(false);
-        if(rutinaBateria != null) StopCoroutine(rutinaBateria);
+        Spotlight.SetActive(false);
+        if (rutinaBateria != null) { StopCoroutine(rutinaBateria); rutinaBateria = null; }
+    }
+
+    void OnDestroy()
+    {
+        if (grabInteract != null) grabInteract.activated.RemoveAllListeners();
     }
 
     IEnumerator GastarBateria()
     {
-        while (contador < 0f)
+        while (contador > 0f)
         {
             contador -= Time.deltaTime;
             yield return null;
         }
-
         Apagar();
     }
 
