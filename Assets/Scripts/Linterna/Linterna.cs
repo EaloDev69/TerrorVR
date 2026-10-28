@@ -9,7 +9,6 @@ public class Linterna : MonoBehaviour
     [SerializeField] public GameObject Spotlight;
     [SerializeField] float batteryTime;
     [SerializeField] public bool encendido;
-    //[SerializeField] Transform SocketLinterna;
  
     float contador;
     Coroutine rutinaBateria;
